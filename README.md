@@ -11,7 +11,9 @@ Compute and track your Body Mass Index and Body Fat Percentage
 - [ ] bmi over 40 : red - morbid obesity
 - [ ] bmi tracker: date, value, graph
 - [ ] profile: save age, height, genre, local storage
-- [ ] bmi on second screen
+- [x] bmi on second screen
 - [ ] feedback on genre select
 
 * [doc](https://www.santepratique.fr/nutrition/calcul-imc)
+
+- [design inspiration](https://dribbble.com/shots/13913052-DailyUI-004-Calculator)
