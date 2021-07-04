@@ -5,6 +5,15 @@ class Results {
   int bodyFatPercentage;
 
   Results(this.bodyMassIndex, this.bodyFatPercentage);
+
+  String category() {
+    if (bodyMassIndex > 12) {
+      return "Normal";
+    }
+    return "Too much";
+  }
+
+  Icon icon() => Icon(Icons.female);
 }
 
 class ResultPage extends StatelessWidget {
@@ -20,15 +29,21 @@ class ResultPage extends StatelessWidget {
       ),
       body: Center(
           child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
+          results.icon(), //
+          Text("Below are your results given your height, age and gender."),
           Text(
-              "Your results: BMI: ${results.bodyMassIndex};  BFP: ${results.bodyFatPercentage}"),
+            "Your BMI is ${results.bodyMassIndex}, and your BFP is ${results.bodyFatPercentage}, indicating your weight is in the ${results.category()} for adults of your height.",
+          ),
+          Text(
+            "Maintaining a healthy weight may reduce the risk of chronic diseases associated with overweight and obesity.",
+          ),
           ElevatedButton(
             onPressed: () {
               Navigator.pop(context);
             },
-            child: Text('Go back!'),
+            child: Text('Recalculate BMI'),
           ),
         ],
       )),
