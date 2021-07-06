@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'profile.dart';
 import 'result.dart';
 
 class CalculatorPage extends StatefulWidget {
@@ -34,6 +35,15 @@ class _CalculatorPageState extends State<CalculatorPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.person),
+            tooltip: 'Open shopping cart',
+            onPressed: () {
+              Navigator.pushNamed(context, ProfilePage.routeName);
+            },
+          ),
+        ],
       ),
       body: Center(
         child: Column(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'calculator.dart';
+import 'profile.dart';
 import 'result.dart';
 
 void main() => runApp(BMIApp());
@@ -14,6 +15,7 @@ class BMIApp extends StatelessWidget {
         routes: {
           CalculatorPage.routeName: (context) => CalculatorPage(),
           ResultPage.routeName: (context) => ResultPage(),
+          ProfilePage.routeName: (context) => ProfilePage(),
         },
       );
 }
