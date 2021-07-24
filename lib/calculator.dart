@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'profile.dart';
@@ -30,7 +31,9 @@ class _CalculatorPageState extends State<CalculatorPage> {
       (1.2 * bodyMassIndex() + .23 * _age - 10.8 * _gender - 5.4).round();
 
   Future<void> _saveResults() async {
-    var now = DateTime.now().toString();
+    var dateFormatter = DateFormat("dd/MM/yyyy");
+    var now = dateFormatter.format(DateTime.now());
+
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setStringList(
       now,
