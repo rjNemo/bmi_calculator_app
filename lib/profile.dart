@@ -1,3 +1,4 @@
+import 'package:bmi_calculator/calculator.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -32,34 +33,51 @@ class _ProfilePageState extends State<ProfilePage> {
     super.initState();
   }
 
+  Future<void> clearMeasurements() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.clear();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text("Your profile"),
       ),
-      body: ListView.builder(
-        padding: const EdgeInsets.all(8),
-        itemCount: storedMeasurements.length,
-        itemBuilder: (BuildContext context, int index) {
-          return InkWell(
-            child: ListTile(
-              onTap: null,
-              leading: CircleAvatar(
-                backgroundColor: Colors.lightGreen,
-                child: Text("${index + 1}"),
-                foregroundColor: Colors.white,
-              ),
-              title: Row(
-                children: <Widget>[
-                  Expanded(child: Text(storedMeasurements[index]["date"]!)),
-                  Expanded(child: Text(storedMeasurements[index]["bmi"]!)),
-                  Expanded(child: Text(storedMeasurements[index]["bfp"]!)),
-                ],
-              ),
-            ),
-          );
-        },
+      body: Column(
+        children: [
+          ListView.builder(
+            physics: NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            padding: const EdgeInsets.all(8),
+            itemCount: storedMeasurements.length,
+            itemBuilder: (BuildContext context, int index) {
+              return InkWell(
+                child: ListTile(
+                  onTap: null,
+                  leading: CircleAvatar(
+                    backgroundColor: Colors.lightGreen,
+                    child: Text("${index + 1}"),
+                    foregroundColor: Colors.white,
+                  ),
+                  title: Row(
+                    children: <Widget>[
+                      Expanded(child: Text(storedMeasurements[index]["date"]!)),
+                      Expanded(child: Text(storedMeasurements[index]["bmi"]!)),
+                      Expanded(child: Text(storedMeasurements[index]["bfp"]!)),
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+          ElevatedButton(
+              onPressed: () {
+                clearMeasurements();
+                Navigator.pushNamed(context, CalculatorPage.routeName);
+              },
+              child: Text("Clear Measurements"))
+        ],
       ),
     );
   }
