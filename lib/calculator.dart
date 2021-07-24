@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'profile.dart';
 import 'result.dart';
@@ -28,6 +29,15 @@ class _CalculatorPageState extends State<CalculatorPage> {
   int bodyFatPercentage() =>
       (1.2 * bodyMassIndex() + .23 * _age - 10.8 * _gender - 5.4).round();
 
+  Future<void> _saveResults() async {
+    var now = DateTime.now().toString();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setStringList(
+      now,
+      [bodyMassIndex().toString(), bodyFatPercentage().toString()],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     bool _isWoman = _gender == 0;
@@ -38,7 +48,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.person),
-            tooltip: 'Open shopping cart',
+            tooltip: 'Open profile page',
             onPressed: () {
               Navigator.pushNamed(context, ProfilePage.routeName);
             },
@@ -118,7 +128,8 @@ class _CalculatorPageState extends State<CalculatorPage> {
             ),
             ElevatedButton(
               onPressed: () {
-                print("BMI: ${bodyMassIndex()};  BFP: ${bodyFatPercentage()}");
+                _saveResults();
+
                 Navigator.pushNamed(
                   context,
                   ResultPage.routeName,
